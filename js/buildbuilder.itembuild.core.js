@@ -17,50 +17,50 @@
  *
  *	User-info: If you change the HTML be sure to alter the refrences to the jQuery objects in the html globals as well.
  */
-function globals()
+function itemBuild_globals()
 {
 	var _globals = {
 			html : {
-				content : $("div#content"),
+				content : $("div#buildbuilder"),
 				progressbar : $("div#progressbar"),
-				itembuilder : $("div#itembuilder"),
-				filterlist : $("div#filterlist"),
-				tiers : $("div#tiers"),
-				view : $("div#view"),
-				builtfrom : $("div#builtfrom"),
-				buildsinto : $("div#buildsinto"),
-				buildlist : $("div#buildlist"),
+				itembuilder : $("div#itembuild"),
+				filterlist : $("div#item-filterlist"),
+				tiers : $("div#item-tiers"),
+				view : $("div#item-selection-view"),
+				builtfrom : $("div#item-selection-view-builtfrom"),
+				buildsinto : $("div#item-selection-view-buildsinto"),
+				buildlist : $("div#itembuild-list"),
 				itemhover : { 
 					self: $("div#itemhover"),
-					itemname : $("#itemname"),
-					itemdescription : $("#itemdescription"),
-					itemcost : $("#itemcost"),
-					itemtotalcost : $("#itemtotalcost")
+					itemname : $("#itemhover-name"),
+					itemdescription : $("#itemhover-description"),
+					itemcost : $("#itemhover-cost"),
+					itemtotalcost : $("#itemhover-totalcost")
 					},
 				goldinfo : {
-					self : $("div#goldinfo"),
+					self : $("div#itembuild-goldinfo"),
 					build : {
-						self : $("ul#buildgoldinfo"),
-						buildcost : $("#buildcost"),
-						minionwave : $("#buildmwntot"),
-						meleeminion : $("#buildmmntot"),
-						casterminion : $("#buildcmntot"),
-						siegeminion : $("#buildsmntot"),
-						superminion : $("#buildspmntot")
+						self : $("#itembuild-goldinfo-build"),
+						buildcost : $("#itembuild-goldinfo-build-cost"),
+						minionwave : $("#itembuild-goldinfo-build-minwavenum"),
+						meleeminion : $("#itembuild-goldinfo-build-meleeminnum"),
+						casterminion : $("#itembuild-goldinfo-build-castminnum"),
+						siegeminion : $("#itembuild-goldinfo-build-siegeminnum"),
+						superminion : $("#itembuild-goldinfo-build-supminnum")
 					},
 					item : {
-						self : $("ul#itemgoldinfo"),
-						name : $("#goldinfoitemname"),
-						cost : $("#goldinfoitemcost"),
-						minionwave : $("#itemmwntot"),
-						meleeminion : $("#itemmmntot"),
-						casterminion : $("#itemcmntot"),
-						siegeminion : $("#itemsmntot"),
-						superminion : $("#itemspmntot")
+						self : $("ul#itembuild-goldinfo-item"),
+						name : $("#itembuild-goldinfo-item-name"),
+						cost : $("#itembuild-goldinfo-item-cost"),
+						minionwave : $("#itembuild-goldinfo-item-minwavenum"),
+						meleeminion : $("#itembuild-goldinfo-item-meleeminnum"),
+						casterminion : $("#itembuild-goldinfo-item-castminnum"),
+						siegeminion : $("#itembuild-goldinfo-item-siegeminnum"),
+						superminion : $("#itembuild-goldinfo-item-supminnum")
 					}
 				},
 				settings: {
-					self: $("div#settings")
+					self: $("#settings-itembuild")
 				}
 			},
 		application :
@@ -199,6 +199,7 @@ function globals()
  */
 function changeInSettings(e,_globals)
 {
+	alert("blaat");
 	var source = $(e.target);
 	
 	switch(source.attr("id"))
@@ -234,7 +235,7 @@ var maxTier;
  *
  *	User-info: 		If you change the HTML be sure to alter the refrences to the jQuery objects in the html globals as well.
  */
-function init(_globals)
+function itemBuild_init(_globals)
 {
 	_globals.html.content.css("display","none");
 	_globals.html.itembuilder.css("display","none");
@@ -257,7 +258,7 @@ function init(_globals)
 		_globals.html.buildlist.css("display","block");
 		_globals.html.goldinfo.self.css("display","block");
 	});
-	$( "#itembuildmenu" ).tabs({
+	$( "#itembuild-menu-tabs" ).tabs({
 		selected: -1,
 		collapsible: true
 	});

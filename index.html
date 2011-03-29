@@ -14,96 +14,118 @@
 	<script type="text/javascript" src="js/ui/jquery.ui.progressbar.js"></script> 
 	<script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script> 
 	<script type="text/javascript" src="js/doTimeout.js"></script> 
-	<script type="text/javascript" src="js/itembuild.item.js"></script> 
-	<script type="text/javascript" src="js/itembuild.core.js"></script>
+	<script type="text/javascript" src="js/buildbuilder.itembuild.item.js"></script> 
+	<script type="text/javascript" src="js/buildbuilder.itembuild.core.js"></script>
+	<script type="text/javascript" src="js/buildbuilder.core.js"></script>
 	</head> 
 	<body> 
 		<div id = "progressbar"></div>
-		<div id = "content"> 
+		<div id = "buildbuilder"> 
 			<div id="header">
-				<p>Sponsored by</p>
-				<a href="http://absolutelegends.eu">
-					<img alt="Absolute Legends" src="images/AL-logo.png"></img>
-				</a>
 			</div>
-			<div id = "itembuilder">
-				<div id = "filterlist">Filters</div> 
-				<div id = "tiers"></div> 
-				<div id = "view"> 
-					<div id = "builtfrom"></div> 
-					<div id = "buildsinto"></div> 
+			<div id="championbuild">
+			</div>
+			<div id = "itembuild">
+				<div id = "item-filterlist">Filters</div> 
+				<div id = "item-tiers"></div> 
+				<div id = "item-selection-view"> 
+					<div id = "item-selection-view-builtfrom"></div> 
+					<div id = "item-selection-view-buildsinto"></div> 
+				</div>
+				<div id = "itemhover"> 
+					<h3 id = "itemhover-name"></h3> 
+					<p id = "itemhover-description"></p> 
+					<h4>Item cost</h4>
+					<p id = "itemhover-cost"></p> 
+					<h4>Total cost</h4>
+					<p id = "itemhover-totalcost"></p>
 				</div> 
-				<div id = "itembuildmenu" class= "tabs-bottom">
+			</div>
+			<div id = "buildmenu">
 				<ul> 
-					<li><a href="#buildlist">Build list</a></li> 
-					<li><a href="#goldinfo">Gold info</a></li> 
+					<li><a href="#championbuild-menu">Champions</a></li>
+					<li><a href="#itembuild-menu">Itembuild</a></li>
 					<li><a href="#settings">Settings</a></li> 
 				</ul> 
-				<div id = "goldinfo">
-					<h2>Gold info</h2>
-					<br/>
-					<div id = "buildgoldinfo">
-						<h3>Build</h3>
-						<h4>Build cost</h4>
-						<p id = "buildcost"></p>
-						<h4>Minion waves</h4>
-						<p id = "buildmwntot"></p>
-						<h4>Melee minions</h4>
-						<p id = "buildmmntot"></p>
-						<h4>Caster minions</h4>
-						<p id = "buildcmntot"></p>
-						<h4>Siege minions</h4>
-						<p id = "buildsmntot"></p>
-						<h4>Super minions</h4>
-						<p id = "buildspmntot"></p>
-					</div>
-					<br/>
-					<div id = "itemgoldinfo">
-						<h3>Selected item</h3>
-						<h4>Name</h4>
-						<p id="goldinfoitemname"></p>
-						<h4>Cost</h4>
-						<p id="goldinfoitemcost"></p>
-						<h4>Minion waves</h4>
-						<p id = "itemmwntot"></p>
-						<h4>Melee minions</h4>
-						<p id = "itemmmntot"></p>
-						<h4>Caster minions</h4>
-						<p id = "itemcmntot"></p>
-						<h4>Siege minions</h4>
-						<p id = "itemsmntot"></p>
-						<h4>Super minions</h4>
-						<p id = "itemspmntot"></p>
+				<div id = "championbuild-menu">
+				</div>
+				<div id = "itembuild-menu">
+					<div id ="itembuild-menu-tabs">
+						<ul> 
+							<li><a href="#itembuild-list">Build list</a></li> 
+							<li><a href="#itembuild-goldinfo">Gold info</a></li> 
+						</ul> 
+					
+						<div id = "itembuild-goldinfo">
+							<h2>Gold info</h2>
+							<br/>
+							<ul id = "itembuild-goldinfo-build">
+								<li>
+									<h3>Build</h3>
+									<h4>Build cost</h4>
+									<p id = "itembuild-goldinfo-build-cost"></p>
+									<h4>Minion waves</h4>
+									<p id = "itembuild-goldinfo-build-minwavenum"></p>
+									<h4>Melee minions</h4>
+									<p id = "itembuild-goldinfo-build-meleeminnum"></p>
+									<h4>Caster minions</h4>
+									<p id = "itembuild-goldinfo-build-castminnum"></p>
+									<h4>Siege minions</h4>
+									<p id = "itembuild-goldinfo-build-siegeminnum"></p>
+									<h4>Super minions</h4>
+									<p id = "itembuild-goldinfo-build-supminnum"></p>
+								</li>
+							</ul>
+							<ul id = "itembuild-goldinfo-item">
+								<li>
+									<h3>Selected item</h3>
+									<h4>Name</h4>
+									<p id="itembuild-goldinfo-item-name"></p>
+									<h4>Cost</h4>
+									<p id="itembuild-goldinfo-item-cost"></p>
+									<h4>Minion waves</h4>
+									<p id = "itembuild-goldinfo-item-minwavenum"></p>
+									<h4>Melee minions</h4>
+									<p id = "itembuild-goldinfo-item-meleeminnum"></p>
+									<h4>Caster minions</h4>
+									<p id = "itembuild-goldinfo-item-castminnum"></p>
+									<h4>Siege minions</h4>
+									<p id = "itembuild-goldinfo-item-siegeminnum"></p>
+									<h4>Super minions</h4>
+									<p id = "itembuild-goldinfo-item-supminnum"></p>
+								</li>
+							</ul>
+						</div>
+						<div id = "itembuild-list"></div>
 					</div>
 				</div>
-				<div id = "buildlist"></div>
 				<div id = "settings">
-					<ul id="goldinfosettings">
-						<li id="goldinfosettings-merge"> 
-							<h4>Merge settinngs</h4>
-							<ul>
-							<li><input type="checkbox" id="goldinfosettings-merge" checked="checked"></input> Merge gold cost for items</li>
-								<li><input type="radio" id="goldinfosettings-merge-auto" checked="checked"></input> Automatic</li>
-								<li><input type="checkbox" id="goldinfosettings-merge" checked="checked"></input> Ask user</li>
+					<ul id="settings-itembuild">
+						<li>
+							<ul id="settings-itembuild-goldinfo">
+								<li id="settings-itembuild-goldinfo-mergesettings"> 
+									<h4>Merge settinngs</h4>
+									<ul>
+										<li><input type="checkbox" id="settings-itembuild-goldinfo-mergesettings-merge" checked="checked"></input> Merge gold cost for items</li>
+										<li id="settings-itembuild-goldinfo-mergesettings-inputsettings">
+											<ul>
+												<li><input type="radio" name="settings-itembuild-goldinfo-mergesettings-inputsettings-group" id="settings-itembuild-goldinfo-mergesettings-auto" checked="checked"></input> Automatic</li>
+												<li><input type="radio" name="settings-itembuild-goldinfo-mergesettings-inputsettings-group" id="settings-itembuild-goldinfo-mergesettings-user" checked="checked"></input> User input</li>
+											</ul>
+										</li>
+										
+									</ul>
+								</li>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</div>
-			</div>
-		</div>
-		<div id = "itemhover"> 
-			<h3 id = "itemname"></h3> 
-			<p id = "itemdescription"></p> 
-			<h4>Item cost</h4>
-			<p id = "itemcost"></p> 
-			<h4>Total cost</h4>
-			<p id = "itemtotalcost"></p>
 		</div> 
 		<script type="text/javascript"> 
 	//Start the application when DOM is loaded.
 	$(document).ready(function(){
-		init(globals());
+		buildBuilder_init();
 		});
 	</script>
 	</body> 
