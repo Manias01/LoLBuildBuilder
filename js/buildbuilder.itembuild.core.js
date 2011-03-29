@@ -7,7 +7,9 @@
  *							  ,	Added application settings tab.
  *					24-03-2010,	Added documentation for item cost merging methods.
  *
- *		To-do:		NULL
+ *		To-do:		Rename and restucture _globals object.
+ *					Improve item cost merging techniques
+ *					Add user inputted item cost merging.
  */
 
 /*
@@ -199,7 +201,6 @@ function itemBuild_globals()
  */
 function changeInSettings(e,_globals)
 {
-	alert("blaat");
 	var source = $(e.target);
 	
 	switch(source.attr("id"))
@@ -282,7 +283,7 @@ function getItemInfo(_globals)
 	var itemsList = new Array();
 	$.ajax({
 		   type: "GET",
-		   url: "php/GetItemsPage.php",
+		   url: "php/GetInfo.php?info=items",
 		   async: false,
 		   success:  
 			function(results)

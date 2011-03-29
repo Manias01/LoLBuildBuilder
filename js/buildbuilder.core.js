@@ -1,5 +1,9 @@
-/**
- * 
+/*		Copyright:	Robert Diebels
+ * 		Author:		Robert Diebels
+ * 		Version:	0.1 beta
+ *		Updates:	29-03-2010,	Creation.
+ *
+ *		To-do:		NULL
  */
 
 function buildBuilder_init()
@@ -8,5 +12,8 @@ function buildBuilder_init()
 		selected: -1,
 		collapsible: true
 	});
-	itemBuild_init(itemBuild_globals());
+
+	championBuild_init();
+	
+	//itemBuild_init(itemBuild_globals());
 }
