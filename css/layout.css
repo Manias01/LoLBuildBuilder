@@ -1,0 +1,33 @@
+@CHARSET "utf-8";
+
+*
+{
+	margin: 	0px;
+	padding: 	0px;
+}
+
+a.item
+{
+	height: 100px;
+	width: 100px;	
+}
+
+div#buildsinto
+{
+	padding: 10px;
+}
+
+div#builtfrom
+{
+	padding: 10px;
+}
+
+div.buildsintoitemhierarchy
+{
+	padding: 10px;
+}
+
+div#itemhover
+{
+	width: 300px;
+}

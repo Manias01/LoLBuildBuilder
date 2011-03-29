@@ -1,0 +1,110 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head> 
+	<title>LoL Item Build Builder</title> 
+	<link rel="stylesheet" type="text/css" href="css/themes/base/jquery.ui.all.css" />  
+	<link rel="stylesheet" type="text/css" href="css/layout.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="js/jquery-1.5.js"></script> 
+	<script type="text/javascript" src="js/ui/jquery-ui-1.8.10.custom.js"></script> 
+	<script type="text/javascript" src="js/ui/jquery.ui.core.js"></script> 
+	<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script> 
+	<script type="text/javascript" src="js/ui/jquery.ui.progressbar.js"></script> 
+	<script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script> 
+	<script type="text/javascript" src="js/doTimeout.js"></script> 
+	<script type="text/javascript" src="js/itembuild.item.js"></script> 
+	<script type="text/javascript" src="js/itembuild.core.js"></script>
+	</head> 
+	<body> 
+		<div id = "progressbar"></div>
+		<div id = "content"> 
+			<div id="header">
+				<p>Sponsored by</p>
+				<a href="http://absolutelegends.eu">
+					<img alt="Absolute Legends" src="images/AL-logo.png"></img>
+				</a>
+			</div>
+			<div id = "itembuilder">
+				<div id = "filterlist">Filters</div> 
+				<div id = "tiers"></div> 
+				<div id = "view"> 
+					<div id = "builtfrom"></div> 
+					<div id = "buildsinto"></div> 
+				</div> 
+				<div id = "itembuildmenu" class= "tabs-bottom">
+				<ul> 
+					<li><a href="#buildlist">Build list</a></li> 
+					<li><a href="#goldinfo">Gold info</a></li> 
+					<li><a href="#settings">Settings</a></li> 
+				</ul> 
+				<div id = "goldinfo">
+					<h2>Gold info</h2>
+					<br/>
+					<div id = "buildgoldinfo">
+						<h3>Build</h3>
+						<h4>Build cost</h4>
+						<p id = "buildcost"></p>
+						<h4>Minion waves</h4>
+						<p id = "buildmwntot"></p>
+						<h4>Melee minions</h4>
+						<p id = "buildmmntot"></p>
+						<h4>Caster minions</h4>
+						<p id = "buildcmntot"></p>
+						<h4>Siege minions</h4>
+						<p id = "buildsmntot"></p>
+						<h4>Super minions</h4>
+						<p id = "buildspmntot"></p>
+					</div>
+					<br/>
+					<div id = "itemgoldinfo">
+						<h3>Selected item</h3>
+						<h4>Name</h4>
+						<p id="goldinfoitemname"></p>
+						<h4>Cost</h4>
+						<p id="goldinfoitemcost"></p>
+						<h4>Minion waves</h4>
+						<p id = "itemmwntot"></p>
+						<h4>Melee minions</h4>
+						<p id = "itemmmntot"></p>
+						<h4>Caster minions</h4>
+						<p id = "itemcmntot"></p>
+						<h4>Siege minions</h4>
+						<p id = "itemsmntot"></p>
+						<h4>Super minions</h4>
+						<p id = "itemspmntot"></p>
+					</div>
+				</div>
+				<div id = "buildlist"></div>
+				<div id = "settings">
+					<ul id="goldinfosettings">
+						<li id="goldinfosettings-merge"> 
+							<h4>Merge settinngs</h4>
+							<ul>
+							<li><input type="checkbox" id="goldinfosettings-merge" checked="checked"></input> Merge gold cost for items</li>
+								<li><input type="radio" id="goldinfosettings-merge-auto" checked="checked"></input> Automatic</li>
+								<li><input type="checkbox" id="goldinfosettings-merge" checked="checked"></input> Ask user</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div id = "itemhover"> 
+			<h3 id = "itemname"></h3> 
+			<p id = "itemdescription"></p> 
+			<h4>Item cost</h4>
+			<p id = "itemcost"></p> 
+			<h4>Total cost</h4>
+			<p id = "itemtotalcost"></p>
+		</div> 
+		<script type="text/javascript"> 
+	//Start the application when DOM is loaded.
+	$(document).ready(function(){
+		init(globals());
+		});
+	</script>
+	</body> 
+</html>
