@@ -251,6 +251,7 @@
           callback = method_base[ callback ];
         }
         
+        
         callback.apply( that, aps.call( args, slice_args ) ) === true && !no_polling_loop
           
           // Since the callback returned true, and we're not specifically

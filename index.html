@@ -5,6 +5,7 @@
 	<head> 
 	<title>LoL Item Build Builder</title> 
 	<link rel="stylesheet" type="text/css" href="css/themes/base/jquery.ui.all.css" />  
+	<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="css/layout.css" /> 
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script type="text/javascript" src="js/jquery-1.5.js"></script> 
@@ -13,6 +14,8 @@
 	<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script> 
 	<script type="text/javascript" src="js/ui/jquery.ui.progressbar.js"></script> 
 	<script type="text/javascript" src="js/ui/jquery.ui.tabs.js"></script> 
+	<script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.easing-1.4.pack.js"></script>
 	<script type="text/javascript" src="js/doTimeout.js"></script> 
 	<script type="text/javascript" src="js/buildbuilder.itembuild.item.js"></script> 
 	<script type="text/javascript" src="js/buildbuilder.championbuild.champion.js"></script> 
@@ -22,11 +25,23 @@
 	<script type="text/javascript" src="js/buildbuilder.core.js"></script>
 	</head> 
 	<body> 
-		<div id = "progressbar"></div>
+		<div id = "progressbar">
+			<div id="progressbar-bar"></div>
+			<p id="progressbar-status"></p>
+		</div>
 		<div id = "buildbuilder"> 
 			<div id="header">
 			</div>
 			<div id="championbuild">
+				<div id="champions"></div>
+				<div class="invis">
+					<div id="championinfo">
+						<h2 id ="championinfo-name"></h2>
+						<h3 id="championinfo-title"></h3>
+						<p id="championinfo-description"></p>
+					</div>
+				</div>
+				<a id="fancyboxhelper" href="#championinfo" title="Champion info"></a>
 			</div>
 			<div id = "itembuild">
 				<div id = "item-filterlist">Filters</div> 
@@ -112,8 +127,8 @@
 										<li><input type="checkbox" id="settings-itembuild-goldinfo-mergesettings-merge" checked="checked"></input> Merge gold cost for items</li>
 										<li id="settings-itembuild-goldinfo-mergesettings-inputsettings">
 											<ul>
-												<li><input type="radio" name="settings-itembuild-goldinfo-mergesettings-inputsettings-group" id="settings-itembuild-goldinfo-mergesettings-auto" checked="checked"></input> Automatic</li>
-												<li><input type="radio" name="settings-itembuild-goldinfo-mergesettings-inputsettings-group" id="settings-itembuild-goldinfo-mergesettings-user" checked="checked"></input> User input</li>
+												<li><input type="radio" name="settings-itembuild-goldinfo-mergesettings-inputsettings-group" id="settings-itembuild-goldinfo-mergesettings-inputsettings-auto" checked="checked"></input> Automatic</li>
+												<li><input type="radio" name="settings-itembuild-goldinfo-mergesettings-inputsettings-group" id="settings-itembuild-goldinfo-mergesettings-inputsettings-user"></input> User input</li>
 											</ul>
 										</li>
 										
@@ -128,7 +143,7 @@
 		<script type="text/javascript"> 
 	//Start the application when DOM is loaded.
 	$(document).ready(function(){
-		buildBuilder_init();
+		buildBuilder_init(buildBuilder_globals());
 		});
 	</script>
 	</body> 

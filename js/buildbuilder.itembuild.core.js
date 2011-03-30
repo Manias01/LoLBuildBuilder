@@ -19,176 +19,21 @@
  *
  *	User-info: If you change the HTML be sure to alter the refrences to the jQuery objects in the html globals as well.
  */
-function itemBuild_globals()
-{
-	var _globals = {
-			html : {
-				content : $("div#buildbuilder"),
-				progressbar : $("div#progressbar"),
-				itembuilder : $("div#itembuild"),
-				filterlist : $("div#item-filterlist"),
-				tiers : $("div#item-tiers"),
-				view : $("div#item-selection-view"),
-				builtfrom : $("div#item-selection-view-builtfrom"),
-				buildsinto : $("div#item-selection-view-buildsinto"),
-				buildlist : $("div#itembuild-list"),
-				itemhover : { 
-					self: $("div#itemhover"),
-					itemname : $("#itemhover-name"),
-					itemdescription : $("#itemhover-description"),
-					itemcost : $("#itemhover-cost"),
-					itemtotalcost : $("#itemhover-totalcost")
-					},
-				goldinfo : {
-					self : $("div#itembuild-goldinfo"),
-					build : {
-						self : $("#itembuild-goldinfo-build"),
-						buildcost : $("#itembuild-goldinfo-build-cost"),
-						minionwave : $("#itembuild-goldinfo-build-minwavenum"),
-						meleeminion : $("#itembuild-goldinfo-build-meleeminnum"),
-						casterminion : $("#itembuild-goldinfo-build-castminnum"),
-						siegeminion : $("#itembuild-goldinfo-build-siegeminnum"),
-						superminion : $("#itembuild-goldinfo-build-supminnum")
-					},
-					item : {
-						self : $("ul#itembuild-goldinfo-item"),
-						name : $("#itembuild-goldinfo-item-name"),
-						cost : $("#itembuild-goldinfo-item-cost"),
-						minionwave : $("#itembuild-goldinfo-item-minwavenum"),
-						meleeminion : $("#itembuild-goldinfo-item-meleeminnum"),
-						casterminion : $("#itembuild-goldinfo-item-castminnum"),
-						siegeminion : $("#itembuild-goldinfo-item-siegeminnum"),
-						superminion : $("#itembuild-goldinfo-item-supminnum")
-					}
-				},
-				settings: {
-					self: $("#settings-itembuild")
-				}
-			},
-		application :
-		{
-			globals: {
-				maxtier : 0
-			},
-			settings : {
-				goldinfo : {
-					merge: true,
-					wave : 0
-				}
-			}
-		},
-		gameinfo : {
-			minions : {
-				wave : {
-					minionsperwave: {
-						melee : 3,
-						caster: 4,
-						siege: 0.5,
-						superminion: 0
-					},
-					minionspersuperwave: {
-						melee : 3,
-						caster: 4,
-						siege: 0.5,
-						superminion: 2
-					}
-				},
-				melee : {
-					gold: {
-						base: 25,
-						addedperwave: 10
-					},
-					health : {
-						base : 100,
-						addedperwave: 10
-					},
-					damage : { 
-						base : 30,
-						addedperwave: 10
-					}
-				},
-				caster : {
-					gold: {
-						base: 18,
-						addedperwave: 10
-					},
-					health : {
-						base : 100,
-						addedperwave: 10
-					},
-					damage : { 
-						base : 30,
-						addedperwave: 10
-					}
-				},
-				siege : {
-					gold: {
-						base: 35,
-						addedperwave: 10
-					},
-					health : {
-						base : 100,
-						addedperwave: 10
-					},
-					damage : { 
-						base : 30,
-						addedperwave: 10
-					}
-				},
-				superminion : {
-					gold: {
-						base: 45,
-						addedperwave: 10
-					},
-					health : {
-						base : 100,
-						addedperwave: 10
-					},
-					damage : { 
-						base : 30,
-						addedperwave: 10
-					}
-				}
-			},
-			towers : {
-				gold: {
-					base: 10,
-					addedperwave: 10
-				},
-				health : {
-					base : 100,
-					addedperwave: 10
-				},
-				damage : { 
-					base : 30,
-					addedperwave: 10
-				}
-			},
-			inhibs : {
-				gold: {
-					base: 10,
-					addedperwave: 10
-				},
-				health : {
-					base : 100,
-					addedperwave: 10
-				}
-			}
-		}
-	};
-	$("input",_globals.html.settings.self).click(function(e){changeInSettings(e,_globals);});
-	_globals.html.buildlist.change(function(e){buildListChanged(e);});
+function setItemBuildEventHandlers(_globals)
+{	
+	$("input",_globals.html.buildmenu.settings.self).click(function(e){changeInSettings(e,_globals);});
+	_globals.html.buildmenu.itemmenu.tabs.buildlist.change(function(e){buildListChanged(e);});
 	
-	_globals.html.buildlist.droppable({
+	
+	_globals.html.buildmenu.itemmenu.tabs.buildlist.droppable({
 		 drop: 
 			 function(event, ui) 
 		 	{
-			 	_globals.html.buildlist.append(createClickableItemImage(ui.draggable.data("item"),ui.draggable.data("itemsList"),_globals));
-				_globals.html.buildlist.data({"_globals": _globals,"item":ui.draggable.data("item"), "itemsList":ui.draggable.data("itemsList")});
-			 	_globals.html.buildlist.change();
+			 	_globals.html.buildmenu.itemmenu.tabs.buildlist.append(createClickableItemImage(ui.draggable.data("item"),ui.draggable.data("itemsList"),_globals));
+				_globals.html.buildmenu.itemmenu.tabs.buildlist.data({"_globals": _globals,"item":ui.draggable.data("item"), "itemsList":ui.draggable.data("itemsList")});
+			 	_globals.html.buildmenu.itemmenu.tabs.buildlist.change();
 		 	}
-			});
-	return _globals;
+	});
 }
 
 /*
@@ -205,9 +50,9 @@ function changeInSettings(e,_globals)
 	
 	switch(source.attr("id"))
 	{
-		case "goldinfosettings-merge":
-			var itemsInBuild = $(".itemImage", _globals.html.buildlist);
-			if($("#goldinfosettings-merge").attr("checked") == true)
+		case _globals.html.buildmenu.settings.itembuild.goldinfo.mergesettings.merge.attr("id"):
+			var itemsInBuild = $(".itemImage", _globals.html.buildmenu.itemmenu.tabs.buildlist);
+			if(_globals.html.buildmenu.settings.itembuild.goldinfo.mergesettings.merge.attr("checked") == true)
 			{	
 				_globals.application.settings.goldinfo.merge = true;
 
@@ -238,34 +83,15 @@ var maxTier;
  */
 function itemBuild_init(_globals)
 {
-	_globals.html.content.css("display","none");
-	_globals.html.itembuilder.css("display","none");
-	_globals.html.buildlist.css("display","none");
-	_globals.html.goldinfo.self.css("display","none");
-	$.doTimeout(2000, _globals.html.progressbar.progressbar({ value: 20 }));
+	setItemBuildEventHandlers(_globals);
 	var itemsList = getItemInfo(_globals);
-	$.doTimeout(2000,_globals.html.progressbar.progressbar({ value: 45 }));
 	maxTier = setItemTiers(itemsList);
-	$.doTimeout(2000,_globals.html.progressbar.progressbar({ value: 60 }));
 	createTierDivs(maxTier,_globals);
-	$.doTimeout(2000,_globals.html.progressbar.progressbar({ value: 65 }));
 	createSelectionImages(itemsList, null, _globals);
-	$.doTimeout(2000,_globals.html.progressbar.progressbar({ value: 85 }));
-	//Longer timeout because otherwise the image loading is visible in Chrome. 
-	$.doTimeout(4000,function(){
-		_globals.html.progressbar.css("display","none");
-		_globals.html.itembuilder.css("display","block");
-		_globals.html.content.css("display","block");
-		_globals.html.buildlist.css("display","block");
-		_globals.html.goldinfo.self.css("display","block");
-	});
-	$( "#itembuild-menu-tabs" ).tabs({
+	_globals.html.buildmenu.itemmenu.tabs.self.tabs({
 		selected: -1,
 		collapsible: true
 	});
-	$( ".tabs-bottom .ui-tabs-nav, .tabs-bottom .ui-tabs-nav > *" )
-		.removeClass( "ui-corner-all ui-corner-top" )
-		.addClass( "ui-corner-bottom" );
 }
 
 /*
@@ -314,7 +140,7 @@ function getItemInfo(_globals)
 				$(ulHeaderContainer).attr("id","ul_header_container");
 				$("li.filter_list_header",$(filterList)).wrapAll($(ulHeaderContainer));
 				
-				_globals.html.filterlist.html($(filterList).html());
+				_globals.html.buildbuilder.itembuild.filterlist.html($(filterList).html());
 
 				var itemDetailTooltips = $("div.item_detail_tooltip",$(results));
 	
@@ -387,7 +213,7 @@ function getItemInfo(_globals)
 				}
 		  	);
  
-			var checkBoxes = $(".checkbx", _globals.html.filterlist);
+			var checkBoxes = $(".checkbx", _globals.html.buildbuilder.itembuild.filterlist);
 	$(checkBoxes).each(
 			function()
 			{
@@ -514,7 +340,7 @@ function createTierDivs(maxTier,_globals)
 		var divTier = document.createElement("div");
 		$(divTier).attr("id","tier"+i);
 		$(divTier).addClass("tier");
-		_globals.html.tiers.append($(divTier));
+		_globals.html.buildbuilder.itembuild.tiers.append($(divTier));
 	}
 }
  
@@ -532,7 +358,7 @@ function createSelectionImages(itemsList, checkBoxes,_globals)
 {
 	for(var i = maxTier; i >= 0; i--)
 	{
-		var divTier = $("#tier"+i, _globals.html.tiers);
+		var divTier = $("#tier"+i, _globals.html.buildbuilder.itembuild.tiers);
 		$(divTier).html("");
 	}
 	if(checkBoxes == null)
@@ -601,8 +427,8 @@ function createClickableItemImage(item,itemsList,_globals)
 	
 	$(itemImg).bind("click", function(e){itemImageClicked(e);});
 	$(itemImg).bind("dblclick", function(e){itemImageDoubleClicked(e);});
-	$(itemImg).hover(function(e){setItemHover(e);},function(e){_globals.html.itemhover.self.css({"display":"none"});});
-	$(itemImg).draggable({ revert: true, start:function(event, ui) {$(this).css("z-index","4");}, drag: function(event, ui){_globals.html.itemhover.self.css({"display":"none"});},stop: function(event, ui) { $(this).css("z-index","1");}});
+	$(itemImg).hover(function(e){setItemHover(e);},function(e){_globals.html.buildbuilder.itembuild.itemhover.self.css({"display":"none"});});
+	$(itemImg).draggable({ revert: true, start:function(event, ui) {$(this).css("z-index","4");}, drag: function(event, ui){_globals.html.buildbuilder.itembuild.itemhover.self.css({"display":"none"});},stop: function(event, ui) { $(this).css("z-index","1");}});
 	 
 	return itemImg;
 }
@@ -667,15 +493,15 @@ function buildListChanged(e)
  */
 function setItemGoldInfo(item,_globals)
 {
-	_globals.html.goldinfo.item.name.text(item.name);
-	_globals.html.goldinfo.item.cost.text(item.tgc);
-	_globals.html.goldinfo.item.minionwave.text(Math.ceil(item.tgc/((_globals.gameinfo.minions.melee.gold.base*_globals.gameinfo.minions.wave.minionsperwave.melee)+
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.name.text(item.name);
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.cost.text(item.tgc);
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.minionwave.text(Math.ceil(item.tgc/((_globals.gameinfo.minions.melee.gold.base*_globals.gameinfo.minions.wave.minionsperwave.melee)+
 			(_globals.gameinfo.minions.caster.gold.base*_globals.gameinfo.minions.wave.minionsperwave.caster)+
 			(_globals.gameinfo.minions.siege.gold.base*_globals.gameinfo.minions.wave.minionsperwave.siege))));
-	_globals.html.goldinfo.item.meleeminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.melee.gold.base));
-	_globals.html.goldinfo.item.casterminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.caster.gold.base));
-	_globals.html.goldinfo.item.siegeminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.siege.gold.base));
-	_globals.html.goldinfo.item.superminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.superminion.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.meleeminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.melee.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.casterminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.caster.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.siegeminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.siege.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.item.superminion.text(Math.ceil(item.tgc / _globals.gameinfo.minions.superminion.gold.base));
 }
 	
 /*
@@ -687,7 +513,7 @@ function setItemGoldInfo(item,_globals)
  */
 function setBuildGoldInfo(_globals)
 {
-	var itemsInBuild = $(".itemImage", _globals.html.buildlist);
+	var itemsInBuild = $(".itemImage", _globals.html.buildmenu.itemmenu.tabs.buildlist);
 	
 	if(_globals.application.settings.goldinfo.merge == true)
 	{	
@@ -700,14 +526,14 @@ function setBuildGoldInfo(_globals)
 	
 	var buildCost = getBuildCost(itemsInBuild, _globals);
 	
-	_globals.html.goldinfo.build.buildcost.text(buildCost);
-	_globals.html.goldinfo.build.minionwave.text(Math.ceil(buildCost/((_globals.gameinfo.minions.melee.gold.base*_globals.gameinfo.minions.wave.minionsperwave.melee)+
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.build.cost.text(buildCost);
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.build.minionwave.text(Math.ceil(buildCost/((_globals.gameinfo.minions.melee.gold.base*_globals.gameinfo.minions.wave.minionsperwave.melee)+
 			(_globals.gameinfo.minions.caster.gold.base*_globals.gameinfo.minions.wave.minionsperwave.caster)+
 			(_globals.gameinfo.minions.siege.gold.base*_globals.gameinfo.minions.wave.minionsperwave.siege))));
-	_globals.html.goldinfo.build.meleeminion.text(Math.ceil(buildCost / _globals.gameinfo.minions.melee.gold.base));
-	_globals.html.goldinfo.build.casterminion.text(Math.ceil(buildCost / _globals.gameinfo.minions.caster.gold.base));
-	_globals.html.goldinfo.build.siegeminion.text(Math.ceil(buildCost/ _globals.gameinfo.minions.siege.gold.base));
-	_globals.html.goldinfo.build.superminion.text(Math.ceil(buildCost / _globals.gameinfo.minions.superminion.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.build.meleeminion.text(Math.ceil(buildCost / _globals.gameinfo.minions.melee.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.build.casterminion.text(Math.ceil(buildCost / _globals.gameinfo.minions.caster.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.build.siegeminion.text(Math.ceil(buildCost/ _globals.gameinfo.minions.siege.gold.base));
+	_globals.html.buildmenu.itemmenu.tabs.goldinfo.build.superminion.text(Math.ceil(buildCost / _globals.gameinfo.minions.superminion.gold.base));
 }
 
 /*
@@ -798,12 +624,12 @@ function createBuiltFromView(item, itemsList,_globals)
 	var bfiiParents = getBfiiParents(item,itemsList);
 	if($.isArray(bfiiParents))
 	{
-		_globals.html.builtfrom.html("");
+		_globals.html.buildbuilder.itembuild.selectionview.builtfrom.html("");
 		appendBfiiChildrenToBuiltFromDiv(bfiiParents, itemsList,_globals);
 	}
 	else
 	{
-		_globals.html.builtfrom.html(createClickableItemImage(bfiiParents,itemsList,_globals));
+		_globals.html.buildbuilder.itembuild.selectionview.builtfrom.html(createClickableItemImage(bfiiParents,itemsList,_globals));
 	}
 }
 	
@@ -859,7 +685,7 @@ function appendBfiiChildrenToBuiltFromDiv(bfiiChildren,itemsList,_globals)
 		}
 		else
 		{
-			_globals.html.builtfrom.append(createClickableItemImage(bfiiChildren[i],itemsList,_globals));
+			_globals.html.buildbuilder.itembuild.selectionview.builtfrom.append(createClickableItemImage(bfiiChildren[i],itemsList,_globals));
 		}
 	}
 }
@@ -880,12 +706,12 @@ function createBuildsIntoView(item,itemsList,_globals)
 	var biiiChildren = getBiiiChildren(item, itemsList);
 	if($.isArray(biiiChildren))
 	{
-		_globals.html.buildsinto.html("");
+		_globals.html.buildbuilder.itembuild.selectionview.buildsinto.html("");
 		appendBiiiChildrenToBuildsIntoDiv(biiiChildren,itemsList,_globals);
 	}
 	else
 	{
-		_globals.html.buildsinto.html("none");
+		_globals.html.buildbuilder.itembuild.selectionview.buildsinto.html("none");
 	}
 	checkedItems = new Array();	
 }
@@ -962,7 +788,7 @@ function appendBiiiChildrenToBuildsIntoDiv(biiiChildren, itemsList,_globals)
 			
 			appendBiiiChildrensBfiiParentsToItemHierarchy(getBfiiParents(item,itemsList), itemsList,itemHierarchy,_globals);
 			
-			_globals.html.buildsinto.append($(itemHierarchy));
+			_globals.html.buildbuilder.itembuild.selectionview.buildsinto.append($(itemHierarchy));
 		}
 	}
 }
@@ -1005,17 +831,17 @@ function addToBuildList(e)
 	var itemsList = source.data("itemsList");
 	var _globals = source.data("_globals");
 	
-	if(source.parent().attr("id") == _globals.html.buildlist.attr("id"))
+	if(source.parent().attr("id") == _globals.html.buildmenu.itemmenu.tabs.buildlist.attr("id"))
 	{
-		_globals.html.itemhover.self.css({"display":"none"});
+		_globals.html.buildbuilder.itembuild.itemhover.self.css({"display":"none"});
 		source.remove();
 	}
 	else
 	{
-		_globals.html.buildlist.append(createClickableItemImage(item,itemsList,_globals));
+		_globals.html.buildmenu.itemmenu.tabs.buildlist.append(createClickableItemImage(item,itemsList,_globals));
 	}
-	_globals.html.buildlist.data({"_globals": _globals,"item": item, "itemsList": itemsList});
-	_globals.html.buildlist.change();
+	_globals.html.buildmenu.itemmenu.tabs.buildlist.data({"_globals": _globals,"item": item, "itemsList": itemsList});
+	_globals.html.buildmenu.itemmenu.tabs.buildlist.change();
 }
 
 /*
@@ -1032,34 +858,34 @@ function setItemHover(e)
 	var itemsList = source.data("itemsList");
 	var _globals = source.data("_globals");
 	
-	_globals.html.itemhover.self.css({"display":"block"});
-	_globals.html.itemhover.itemname.text(item.name);
-	_globals.html.itemhover.itemdescription.text(item.desc);
-	_globals.html.itemhover.itemcost.text(item.gc);
-	_globals.html.itemhover.itemtotalcost.text(item.tgc);
+	_globals.html.buildbuilder.itembuild.itemhover.self.css({"display":"block"});
+	_globals.html.buildbuilder.itembuild.itemhover.name.text(item.name);
+	_globals.html.buildbuilder.itembuild.itemhover.desc.text(item.desc);
+	_globals.html.buildbuilder.itembuild.itemhover.cost.text(item.gc);
+	_globals.html.buildbuilder.itembuild.itemhover.totcost.text(item.tgc);
 	//Possibly remove mousemove to increase performance..
 	source.mousemove(
 		function(e)
 		{
-			if(e.pageX + _globals.html.itemhover.self.width() + 30 >= $(window).width())// || e.pageY + _globals.html.itemhover.self.height() + 30 >= $(window).height())
+			if(e.pageX + _globals.html.buildbuilder.itembuild.itemhover.self.width() + 30 >= $(window).width())// || e.pageY + _globals.html.buildbuilder.itembuild.itemhover.self.height() + 30 >= $(window).height())
 			{
-				if( e.pageX + _globals.html.itemhover.self.width() + 30 >= $(window).width())
+				if( e.pageX + _globals.html.buildbuilder.itembuild.itemhover.self.width() + 30 >= $(window).width())
 				{
-					_globals.html.itemhover.self.offset({ top: e.pageY + 10, left: e.pageX - 10 - _globals.html.itemhover.self.width()});
+					_globals.html.buildbuilder.itembuild.itemhover.self.offset({ top: e.pageY + 10, left: e.pageX - 10 - _globals.html.buildbuilder.itembuild.itemhover.self.width()});
 				}
 				//Reinsert if's if users prefer function over performance
-				/*if( e.pageY + _globals.html.itemhover.self.height() + 10 >= $(window).height())
+				/*if( e.pageY + _globals.html.buildbuilder.itembuild.itemhover.self.height() + 10 >= $(window).height())
 				{
-					_globals.html.itemhover.self.offset({ top: e.pageY - 10 - _globals.html.itemhover.self.height(), left: e.pageX + 10});
+					_globals.html.buildbuilder.itembuild.itemhover.self.offset({ top: e.pageY - 10 - _globals.html.buildbuilder.itembuild.itemhover.self.height(), left: e.pageX + 10});
 				}
-				if( e.pageX + _globals.html.itemhover.self.width() + 30 >= $(window).width() && e.pageY + _globals.html.itemhover.self.height() >= $(window).height())
+				if( e.pageX + _globals.html.buildbuilder.itembuild.itemhover.self.width() + 30 >= $(window).width() && e.pageY + _globals.html.buildbuilder.itembuild.itemhover.self.height() >= $(window).height())
 				{
-					_globals.html.itemhover.self.offset({ top: e.pageY - 10 - _globals.html.itemhover.self.height() - 10, left: e.pageX - 10 - _globals.html.itemhover.self.width()});
+					_globals.html.buildbuilder.itembuild.itemhover.self.offset({ top: e.pageY - 10 - _globals.html.buildbuilder.itembuild.itemhover.self.height() - 10, left: e.pageX - 10 - _globals.html.buildbuilder.itembuild.itemhover.self.width()});
 				}*/
 			}
 			else
 			{
-				_globals.html.itemhover.self.offset({ top: e.pageY+10, left: e.pageX+10 });
+				_globals.html.buildbuilder.itembuild.itemhover.self.offset({ top: e.pageY+10, left: e.pageX+10 });
 			}
 		}
 	); 
